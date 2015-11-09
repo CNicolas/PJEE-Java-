@@ -15,5 +15,5 @@ This way, you don't need a jboss server to deploy your app !
 
 Two UML diagrams are joined. 
 
- 1. [diagramme.png](https://github.com/CNicolas/PJEE-Java-/diagramme.png) : The class diagram to properly explain the architecture of the war
- 2. [usecase.png](https://github.com/CNicolas/PJEE-Java-/usecase.png) : The Use Case diagram
+ 1. [diagramme.png](https://github.com/CNicolas/PJEE-Java-/blob/master/diagramme.png) : The class diagram to properly explain the architecture of the war
+ 2. [usecase.png](https://github.com/CNicolas/PJEE-Java-/blob/master/usecase.png) : The Use Case diagram
