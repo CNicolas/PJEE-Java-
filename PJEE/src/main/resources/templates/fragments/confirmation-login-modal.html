@@ -1,0 +1,28 @@
+<div id="confirmationLoginModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationLoginModalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="confirmationLoginModalTitle">Connexion</h4>
+            </div>
+            
+            <div class="modal-body">
+                <form id="formConnection" th:action="@{/connection}" method="post">
+                    <div class="form-group">
+                        <input id="usernameInput" type="text" name="username" placeholder="Nom d'utilisateur" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input id="passwordInput" type="password" name="password" placeholder="Mot de passe" class="form-control" />
+                    </div>
+                    <div class="form-group clearfix">
+                        <button type="submit" class="btn btn-block btn-success">Se connecter</button>
+                        <a href="/createaccount" class="btn btn-block btn-primary">S'inscrire</a>
+                        <button type="button" class="btn btn-block btn-danger" data-dismiss="modal">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

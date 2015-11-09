@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="fragments/head" />
+    
+    <body>
+        <nav th:replace="fragments/navbar"></nav>
+        
+        <div class="container">
+            
+            <div th:if="${themesforum}">
+                <ol class="breadcrumb">
+                    <li class="active">Thèmes</li>
+                </ol>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Thème</th>
+                            <th>Sujets</th>
+                            <th>Dernier post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clickable" th:each="theme : ${themesforum}"
+                            th:attr="data-href='forum?t=' + ${theme.id}">
+                            <td th:text="${theme.name}"></td>
+                            <td><span th:text="${theme.categoriesNumber}"
+                                class="pull-left"></span> <span class="pull-right"> <span
+                                th:if="${connected and theme.newPostsNumber &gt; 0}"
+                                th:text="${theme.newPostsNumber}" class="badge"></span>
+                                </span>
+                            </td>
+                            <td th:if="${mapLastPosts.get(theme)}"><span
+                                th:text="${mapLastPosts.get(theme).datestring}"></span> dans <a
+                                th:href="'forum?t=' + ${theme.id} + '&amp;c=' + ${mapLastPosts.get(theme).category.id} + '#post-' + ${mapLastPosts.get(theme).id}"
+                                th:text="${mapLastPosts.get(theme).category.name}"></a> par <a
+                                th:if="${connected}"
+                                th:href="'/profile?p=' + ${mapLastPosts.get(theme).profile.id}">
+                                <strong th:text="${mapLastPosts.get(theme).profile.firstname}"></strong>
+                                </a> <strong th:unless="${connected}"
+                                    th:text="${mapLastPosts.get(theme).profile.firstname}"></strong>
+                            </td>
+                            <td th:unless="${mapLastPosts.get(theme)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div th:if="${categoriesforum}">
+                <ol class="breadcrumb">
+                    <li><a href="forum">Thèmes</a></li>
+                    <li class="active" th:text="${theme.name}" />
+                </ol>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sujet</th>
+                            <th>Créé par</th>
+                            <th>Posts</th>
+                            <th>Dernier post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clickable" th:each="category : ${categoriesforum}"
+                            th:attr="data-href='forum?t=' + ${theme.id} + '&amp;c=' + ${category.id}">
+                            <td th:text="${category.name}"></td>
+                            <td th:text="${category.profile.firstname}"></td>
+                            <td><span th:text="${category.postsNumber}" class="pull-left"></span>
+                                <span class="pull-right"> <span
+                                    th:if="${connected and category.newPostsNumber &gt; 0}"
+                                    th:text="${category.newPostsNumber}" class="badge"></span>
+                                </span>
+                            </td>
+                            <td th:if="${mapLastPosts.get(category)}"><span
+                                th:text="${mapLastPosts.get(category).datestring}"></span> par <a
+                                th:if="${connected}"
+                                th:href="'/profile?p=' + ${mapLastPosts.get(category).profile.id}">
+                                <strong
+                                    th:text="${mapLastPosts.get(category).profile.firstname}"></strong>
+                                </a> <strong th:unless="${connected}"
+                                    th:text="${mapLastPosts.get(category).profile.firstname}"></strong>
+                            </td>
+                            <td th:unless="${mapLastPosts.get(category)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div th:unless="${connected}">
+                    <a href="#" class="btn btn-xs btn-default disabled">Pour créer
+                    un sujet, connectez-vous !</a>
+                </div>
+                <div th:if="${connected}">
+                    <a th:href="${'/newcategory?t=' + theme.id}"
+                        class="btn btn-xs btn-default">Créer un nouveau sujet</a>
+                </div>
+            </div>
+            
+            <div th:if="${postforum}">
+                <ol class="breadcrumb">
+                    <li><a th:href="forum">Thèmes</a></li>
+                    <li><a th:href="'forum?t=' + ${theme.id}"
+                        th:text="${theme.name}"></a></li>
+                    <li class="active" th:text="${category.name}" />
+                </ol>
+                <div class="panel-group">
+	                <div th:each="post : ${postforum}">
+	                    <div th:replace="fragments/post-panel"></div>
+	                </div>
+                </div>
+                <div th:unless="${connected}">
+                    <a href="#" class="btn btn-xs btn-default disabled">Pour
+                    répondre, connectez-vous !</a>
+                </div>
+                <div th:if="${connected}">
+                    <a th:href="${'/newpost?t=' + theme.id + '&amp;c=' + category.id}"
+                        class="btn btn-xs btn-default">Répondre</a>
+                </div>
+            </div>
+            
+            <div th:if="${nothemes}">
+                <ol class="breadcrumb">
+                    <li class="active">Thèmes</li>
+                </ol>
+                <div class="alert " role="alert">Pas de thèmes</div>
+            </div>
+            
+            <div th:if="${nocategories}">
+                <ol class="breadcrumb">
+                    <li><a href="forum">Thèmes</a></li>
+                    <li class="active" th:text="${theme.name}" />
+                </ol>
+                <div class="alert " role="alert">Pas de catégories</div>
+            </div>
+            
+            <div th:if="${noposts}">
+                <ol class="breadcrumb">
+                    <li><a href="forum">Thèmes</a></li>
+                    <li><a th:href="'forum?t=' + ${theme.id}"
+                        th:text="${theme.name}"></a></li>
+                    <li class="active" th:text="${category.name}" />
+                </ol>
+                <div class="alert " role="alert">Pas de posts</div>
+                <div th:unless="${connected}">
+                    <a href="#" class="btn btn-xs btn-default disabled">Pour poster
+                    un message, connectez-vous !</a>
+                </div>
+                <div th:if="${connected}">
+                    <a th:href="${'/newpost?t=' + theme.id + '&amp;c=' + category.id}"
+                        class="btn btn-xs btn-default">Poster un message</a>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+    
+    <div th:replace="fragments/scripts"></div>
+</html>

@@ -1,0 +1,58 @@
+<nav th:class="${connected}? 'navbar navbar-inverse navbar-static-top' : 'navbar navbar-default navbar-static-top'">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button">
+               <i class="fa fa-arrow-down"></i>
+            </button>
+            <a href="/" class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Accueil">
+                <i class="fa fa-home"></i>
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <span id="notifLogout" th:if="${param.disconnected}" class="hidden notification notification-error">Vous avez été déconnecté(e) !</span>
+            
+            <ul class="nav navbar-nav">
+                <li th:if="${connected}" data-toggle="tooltip" data-placement="bottom" title="Mon Compte">
+                    <a href="/account">
+                        <i class="fa fa-user"></i>
+                    </a>
+                </li>
+                <li th:if="${connected}" data-toggle="tooltip" data-placement="bottom" title="Lorem Ipsum">
+                    <a class="modalLink" href="#" data-toggle="modal" data-target="#loremModal">
+                        <i class="fa fa-file-text-o"></i>
+                    </a>
+                </li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Forum">
+                    <a href="/forum">
+                        <i class="fa fa-comments"></i>
+                    </a>
+                </li>
+                
+                <form th:action="@{/results}" method="post" role="search" class="navbar-form navbar-right form-inline">
+                    <div class="input-group form-group">
+                        <input name="recherche" type="text" class="form-control" placeholder="Rechercher un post"></input>
+                        <div class="input-group-btn">
+                            <button class="btn" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                  
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:unless="${connected}" data-toggle="tooltip" data-placement="bottom" title="Connexion">
+                    <button class="modalLink btn btn-success" href="#" data-toggle="modal" data-target="#confirmationLoginModal">
+                        <i class="fa fa-sign-in"></i>
+                    </button>
+                </li>
+                
+                <li th:if="${connected}" data-toggle="tooltip" data-placement="bottom" title="Déconnexion">
+	                <form id="formLogout" th:action="@{/logout}" method="post" class="form-horizontal">
+				        <button type="submit" class="btn btn-danger"><i class="fa fa-sign-out"></i></button>
+					</form>
+				</li>
+            </ul>
+        </div>
+    </div>
+</nav>

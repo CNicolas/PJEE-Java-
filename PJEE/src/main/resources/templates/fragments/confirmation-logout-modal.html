@@ -1,0 +1,23 @@
+<div id="confirmationLogoutModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationLogoutModalTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="confirmationLogoutModalTitle">Déconnexion</h4>
+            </div>
+            
+            <div class="modal-body">
+				<form id="formLogout" th:action="@{/logout}" method="post" class="form-horizontal">
+				    <div class="form-group clearfix">
+				        <button type="submit" class="col-sm-6 btn btn-success">Déconnecter</button>
+				        <button type="button" class="col-sm-6 btn btn-danger" data-dismiss="modal">Annuler</button>
+				    </div>
+				</form> 
+           </div>
+                        
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"/>
+
+    <body>
+        <nav th:replace="fragments/navbar"></nav>
+
+        <div class="container">
+            <form th:action="@{'/newcategory?t=' + ${themeId}}" th:object="${categoryforum}" method="post">
+                <div class="form-group">
+                    <label for="inputName" class="control-label">Nom du sujet :</label>
+                    <input id="inputName" th:field="*{name}" type="text" class="form-control" placeholder="Nouveau sujet" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success col-sm-5">Soumettre</button>
+                    <a th:href="${'/forum?t=' + themeId}" class="btn btn-danger col-sm-offset-2 col-sm-5">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <div th:replace="fragments/scripts"></div>
+</html>

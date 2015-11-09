@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"/>
+
+    <body>
+        <nav th:replace="fragments/navbar"></nav>
+
+        <div class="container">
+            <form th:action="@{'/editpost?p=' + ${postId}}" th:object="${postforum}" method="post">
+                <div class="form-group">
+                    <input id="titleInput" type="text" name="title" th:field="*{title}" placeholder="Titre" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="typeInput" class="control-label">Type :</label>
+                    <select id="typeInput" class="form-control" th:field="*{type}">
+                        <option value="default" selected="selected">Blanc</option>
+                        <option value="warning">Orange</option>
+                        <option value="danger">Rouge</option>
+                        <option value="primary">Bleu</option>
+                        <option value="info">Violet</option>
+                        <option value="success">Vert</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="contentAreaEditor" rows="10" name="content" th:field="*{content}" placeholder="Contenu" class="form-control" required="required"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success col-sm-5">Soumettre</button>
+                    <button type="reset" class="btn btn-danger col-sm-offset-2 col-sm-5">Vider les champs</button>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <div th:replace="fragments/scripts"></div>
+    <script src="js/vendor/ckeditor_standard/ckeditor.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        CKEDITOR.replace("contentAreaEditor");    
+    </script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"/>
+    
+    <body>
+        <nav th:replace="fragments/navbar"/>
+
+        <div class="container">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="image" class="col-sm-offset-1 col-sm-2 control-label">Image</label>
+                    <div class="col-sm-6">
+                        <img th:unless="${image}" id="image" src="img/empty_profile.jpg" alt="Photo de profil" class="profile-img img-responsive img-thumbnail"></img>
+                        <img th:if="${image}" id="image" th:src="${image}" alt="Photo de profil" class="profile-img img-responsive img-thumbnail"></img>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname" class="col-sm-offset-1 col-sm-2 control-label">Prénom</label>
+                    <div class="col-sm-6">
+                        <input id="firstname" type="text" th:value="${profile.firstname}" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-offset-1 col-sm-2 control-label">Nom</label>
+                    <div class="col-sm-6">
+                        <input id="lastname" type="text" th:value="${profile.lastname}" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-offset-1 col-sm-2 control-label">Email</label>
+                    <div class="col-sm-6">
+                        <input id="email" type="email" th:value="${profile.email}" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age" class="col-sm-offset-1 col-sm-2 control-label">Âge</label>
+                    <div class="col-sm-6">
+                        <input id="age" type="number" th:value="${profile.age}" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <div th:replace="fragments/scripts"/>
+</html>

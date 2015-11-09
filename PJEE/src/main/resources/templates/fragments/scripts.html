@@ -1,0 +1,14 @@
+<div th:if="${connected}">
+    <div th:replace="fragments/lorem-modal"></div>
+    <div th:replace="fragments/confirmation-delete-post-modal"></div>
+    <div th:replace="fragments/confirmation-logout-modal"></div>
+</div>
+
+<div th:unless="${connected}">
+    <div th:replace="fragments/confirmation-login-modal"></div>
+</div>
+
+<script src="js/vendor/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vendor/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vendor/notify.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/pjee.js" type="text/javascript" charset="utf-8"></script>

@@ -1,0 +1,37 @@
+<div th:id="${'post-' + post.id}" th:class="${'panel panel-' + post.type}">
+
+    <span th:text="${'/deletepost?t=' + post.category.theme.id + '&amp;c=' + post.category.id + '&amp;p=' + post.id}"
+        class="hidden delete-post-url"></span>
+
+    <div class="panel-heading clearfix">
+        <span th:text="${post.title}" class="pull-left"></span>
+        
+        <div th:if="${profile != null and profile.id == post.profile.id and #httpServletRequest.requestURI == '/forum'}" class="pull-right">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-sm" role="group" data-toggle="tooltip" data-placement="bottom" title="Editer">
+                    <a th:href="${'/editpost?p=' + post.id}" class="btn btn-xs btn-default">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                </div>
+                <div class="btn-group btn-group-sm" role="group" data-toggle="tooltip" data-placement="bottom" title="Supprimer">
+                    <a th:attr="data-id=${post.id}" href="#" data-toggle="modal"
+                        data-target="#confirmationDeletePostModal" class="modalLink btn btn-xs btn-default delete-post">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div th:if="${#httpServletRequest.requestURI == '/forum'}" class="panel-body" th:utext="${post.content}"></div>
+    <div th:unless="${#httpServletRequest.requestURI == '/forum'}" class="panel-body" th:utext="${post.getContentExtract()}"></div>
+    
+    <div class="panel-footer clearfix">
+        <span class="pull-left">
+            <img th:if="${post.profile.imageContent}" th:src="${post.profile.imageContent}" alt="Photo de profil" class="panel-footer-image profile-img img-rounded"></img>
+            &nbsp;
+            <a th:text="${post.profile.firstname} + ' ' + ${post.profile.lastname}" th:href="${'/profile?p=' + post.profile.id}"></a>
+        </span>
+        <span class="pull-right" th:text="${post.datestring}"></span>
+    </div>
+</div>

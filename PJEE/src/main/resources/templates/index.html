@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"></head>
+
+    <body>
+        <nav th:replace="fragments/navbar"></nav>
+
+        <div class="container">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Salut
+                        <span th:if="${connected}" th:text="${profile.firstname}"></span>
+                    </h1>
+                    <h2>Bienvenue sur le projet PJEE !</h2>
+                </div>
+            </div>
+            
+            <div th:if="${postforum}">                
+                <div id="carousel-posts" class="carousel slide" data-ride="carousel" data-wrap="true" data-interval="5000">
+                    <div class="carousel-inner">
+                        <div class="item" th:each="post : ${postforum}" >
+                            <ol class="breadcrumb">
+                                <li><a th:href="forum">Thèmes</a></li>
+                                <li><a th:href="'forum?t=' + ${post.category.theme.id}" th:text="${post.category.theme.name}"></a></li>
+                                <li>
+                                    <a th:href="'/forum?t=' + ${post.category.theme.id} + '&amp;c=' + ${post.category.id}"
+                                        th:text="${post.category.name}"></a>
+                                </li>
+                            </ol>
+                            <div th:replace="fragments/post-panel"></div>
+                            <div class="carousel-caption">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <div th:replace="fragments/scripts"></div>
+</html>

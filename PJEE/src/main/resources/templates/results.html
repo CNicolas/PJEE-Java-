@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="fragments/head" />
+    
+    <body>
+        <nav th:replace="fragments/navbar"></nav>
+     
+        
+                
+        <div class="container">
+        
+            <div th:if="${noresults}">
+	            <span class="hidden notification notification-error">Pas de résultats pour la recherche : <strong th:text="${search}"></strong>
+	            </span>
+	            <h2>Vous allez être redirigé(e) vers l'accueil dans <span id="timer" th:text="${timeout / 1000}"></span> secondes...</h2>
+	            <a id="timeoutRedirect" th:attr="data-timeout=${timeout}" href="/" class="hidden"></a>
+	        </div>
+        
+	        <span th:unless="${noresults}" class="hidden notification notification-success">Résultats pour la recherche : <strong th:text="${search}"></strong></span>
+        
+            <div th:if="${profiles}" class="panel panel-default">
+                <div class="panel-heading clearfix">Profils correspondants</div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="profile : ${profiles}" th:attr="data-href=${'/profile?p=' + profile.id}" class="clickable">
+                            <td th:text="${profile.firstname}"></td>
+                            <td th:text="${profile.lastname}"></td>
+                            <td th:text="${profile.email}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <hr th:if="${profiles != null and map != null}"></hr>
+        
+            <div th:if="${map}">
+                <div th:each="category : ${map.keySet()}">
+                    <table class="table table-bordered table-hover">
+                        <caption>
+                            <a th:href="forum">Thèmes</a>&nbsp;/&nbsp;
+	                        <a th:href="'forum?t=' + ${category.theme.id}" th:text="${category.theme.name}"></a>&nbsp;/&nbsp;
+	                        <a th:href="'forum?t=' + ${category.theme.id} + '&amp;c=' + ${category.id}" th:text="${category.name}"></a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Post</th>
+                                <th>Auteur</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="post : ${map.get(category)}" th:attr="data-href=${'/forum?' + post.getHref()}" th:class="'clickable ' + ${post.type}">
+                                <td class="col-sm-3" th:text="${post.title}"></td>
+                                <td class="col-sm-5" th:utext="${post.getContentExtract()}"></td>
+                                <td class="col-sm-2" th:text="${post.profile.firstname} + ' ' +${post.profile.lastname}"></td>
+                                <td class="col-sm-2" th:text="${post.getCondensedDatestring()}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+    
+    <div th:replace="fragments/scripts"></div>
+</html>

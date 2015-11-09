@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"/>
+    
+    <body>
+        <nav th:replace="fragments/navbar"/>
+    
+        <div class="container">
+            <div class="jumbotron">
+                <div class="container">
+                    <div class="row">
+                        <h1 class="col col-sm-8">Oh, zut, une erreur !!</h1>
+                    </div>
+                    <a href="/" class="btn btn-full btn-warning">Retour</a>
+                </div>
+            </div>
+            <h1>Vous allez être redirigé(e) vers l'accueil dans <span id="timer" th:text="${timeout / 1000}"></span> secondes...</h1>
+            <a id="timeoutRedirect" th:attr="data-timeout=${timeout}" href="/" class="hidden"></a>
+        </div>
+        
+        <div th:replace="fragments/scripts"/>
+    </body>
+</html>

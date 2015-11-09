@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head"/>
+    
+    <body>
+        <nav th:replace="fragments/navbar"/>
+
+        <div class="container">
+            <h1>Ici tu peux modifier ton profil !</h1>
+
+            <span th:if="${updated}" class="hidden notification notification-success">Profil mis à jour !</span>
+            <span th:if="${fail}" class="hidden notification notification-error" th:inline="text">Erreur : [[${failMessage}]] !</span>
+                          
+            <form th:action="@{/account}" th:object="${profile}" method="post" class="form form-horizontal" enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <label for="image" class="col-sm-offset-1 col-sm-2 control-label">Image</label>
+                    <div class="col-sm-6">
+                        <img th:unless="${image}" src="img/empty_profile.jpg" alt="Photo de profil" class="profile-img img-responsive img-thumbnail"></img>
+                        <img th:if="${image}" th:src="${image}" alt="Photo de profil" class="profile-img img-responsive img-thumbnail"></img>
+<!--                         <span class="btn btn-default btn-file form-control"> -->
+<!-- 						    Parcourir... -->
+					    <input id="image" type="file" name="file" class="btn btn-default btn-block btn-file "/>
+<!-- 						</span> -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname" class="col-sm-offset-1 col-sm-2 control-label">Prénom</label>
+                    <div class="col-sm-6">
+                        <input id="firstname" type="text" th:field="*{firstname}" class="form-control" required="required" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-offset-1 col-sm-2 control-label">Nom</label>
+                    <div class="col-sm-6">
+                        <input id="lastname" type="text" th:field="*{lastname}" class="form-control" required="required" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-offset-1 col-sm-2 control-label">Email</label>
+                    <div class="col-sm-6">
+                        <input id="email" type="email" th:field="*{email}" class="form-control" required="required" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age" class="col-sm-offset-1 col-sm-2 control-label">Âge</label>
+                    <div class="col-sm-6">
+                        <input id="age" type="number" th:field="*{age}" class="form-control" required="required" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block">Mettre à jour</button>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <div th:replace="fragments/scripts"/>
+</html>
